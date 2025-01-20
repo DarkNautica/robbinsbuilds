@@ -14,6 +14,8 @@
   <!-- Alpine.js -->
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 
 </head>
 <body class="bg-gray-50">
