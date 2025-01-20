@@ -17,11 +17,11 @@ class ContactController extends Controller
             'response' => $turnstileResponse,
             'remoteip' => $request->ip(),
         ]);
-
+    
         if (!$turnstileValidation->json('success')) {
             return back()->withErrors(['captcha' => 'CAPTCHA verification failed. Please try again.']);
         }
-
+    
         // Validate form inputs
         $validatedData = $request->validate([
             'first-name' => 'required|string|max:255',
@@ -31,7 +31,7 @@ class ContactController extends Controller
             'phone-number' => 'nullable|string|max:20',
             'message' => 'required|string|max:5000',
         ]);
-
+    
         // Prepare email data
         $data = [
             'firstName' => $validatedData['first-name'],
@@ -41,15 +41,28 @@ class ContactController extends Controller
             'phoneNumber' => $validatedData['phone-number'] ?? 'N/A',
             'messageBody' => $validatedData['message'],
         ];
-
+    
         // Send email
         Mail::send('emails.contact', $data, function ($message) use ($data) {
             $message->from($data['email'], "{$data['firstName']} {$data['lastName']}")
                     ->to('jaydenlyricr@gmail.com') // Replace with your receiving email
                     ->subject('New Contact Form Submission');
+                    
         });
-
-        // Return success response
+    
         return back()->with('success', 'Your message has been sent successfully!');
     }
+    public function sendViaCurl()
+{
+    $response = Http::withBasicAuth('api', env('MAILGUN_SECRET'))
+        ->post('https://api.mailgun.net/v3/' . env('MAILGUN_DOMAIN') . '/messages', [
+            'from' => 'Robbins Builds <contact@robbinsbuilds.com>',
+            'to' => 'jaydenlyricr@gmail.com',
+            'subject' => 'Test Email from Laravel using Curl',
+            'text' => 'This is a test email sent using Curl via Laravel.',
+        ]);
+
+    return $response->successful() ? 'Email sent!' : $response->body();
+}
+    
 }

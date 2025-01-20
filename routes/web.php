@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
+Route::get('/test-curl-email', [ContactController::class, 'sendViaCurl']);
 
 
 require __DIR__.'/auth.php';

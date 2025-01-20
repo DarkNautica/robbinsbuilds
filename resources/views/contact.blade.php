@@ -43,7 +43,7 @@
   </div>
 
   <!-- Form -->
-  <form data-aos="fade-up" action="{{ route('contact.send') }}" method="POST" class="relative mx-auto mt-16 max-w-2xl">
+  <form action="{{ route('contact.send') }}" method="POST">
     @csrf
     <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
       <!-- First Name -->
