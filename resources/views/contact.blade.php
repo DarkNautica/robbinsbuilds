@@ -42,6 +42,8 @@
     <p data-aos="fade-left" class="mt-4 text-lg text-gray-600">
       We'd love to hear from you! Fill out the form below, and we'll be in touch shortly.
     </p>
+    {{ env('CLOUDFLARE_TURNSTILE_SITE_KEY') }}
+
   </div>
 
   <div class="container mx-auto px-6 sm:px-12 lg:px-20 py-12 max-w-3xl">
@@ -132,7 +134,7 @@
       </div>
 
       <!-- Turnstile Widget -->
-    <div class="cf-turnstile" data-sitekey="{{ env('0x4AAAAAAA5zi9UvXELxE6Yx') }}"></div>
+      <div class="cf-turnstile" data-sitekey="{{ env('CLOUDFLARE_TURNSTILE_SITE_KEY') }}"></div>
 
       <!-- Toggle Switch -->
       <div class="flex gap-x-4 sm:col-span-2">
