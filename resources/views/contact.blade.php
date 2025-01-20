@@ -42,8 +42,9 @@
     </p>
   </div>
 
-  <!-- Form -->
-  <form action="{{ route('contact.send') }}" method="POST">
+  <div class="container mx-auto px-6 sm:px-12 lg:px-20 py-12 max-w-3xl">
+    <!-- Form -->
+  <form action="{{ route('contact.send') }}" method="POST"> 
     @csrf
     <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
       <!-- First Name -->
