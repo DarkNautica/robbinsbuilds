@@ -14,7 +14,7 @@
   <!-- Alpine.js -->
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
   <link href="https://unpkg.com/aos@next/dist/aos.css" rel="stylesheet">
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
 
 
 </head>
@@ -180,7 +180,7 @@
 </div>
 
 <!-- Include Turnstile Script -->
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<div class="cf-turnstile"></div>
 
 <!-- Full-Page Scheduling Widget -->
 <div class="relative isolate py-8 lg:py-16">
@@ -212,6 +212,18 @@
 
 </body>
 </html>
+
+
+window.onloadTurnstileCallback = function () {
+  turnstile.render(".cf-turnstile", {
+    sitekey: "{{ env('CLOUDFLARE_TURNSTILE_SITE_KEY') }}",
+    callback: function (token) {
+      console.log(`Challenge Success ${token}`);
+    },
+  });
+};
+
+
 <!-- AOS Script -->
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
