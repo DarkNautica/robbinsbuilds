@@ -130,7 +130,7 @@
       </div>
 
       <!-- Turnstile Widget -->
-    <div class="cf-turnstile" data-sitekey="{{ env('CLOUDFLARE_TURNSTILE_SITE_KEY') }}"></div>
+    <div class="cf-turnstile" data-sitekey="{{ env('0x4AAAAAAA5rjCfO3wPPvQvQ') }}"></div>
 
       <!-- Toggle Switch -->
       <div class="flex gap-x-4 sm:col-span-2">
