@@ -176,7 +176,6 @@
 </div>
 
 <!-- Include Turnstile Script -->
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <!-- Full-Page Scheduling Widget -->
 <div class="relative isolate py-8 lg:py-16">
