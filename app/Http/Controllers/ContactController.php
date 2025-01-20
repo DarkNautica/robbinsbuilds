@@ -4,13 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Symfony\Component\Mime\Email;
+use Illuminate\Support\Facades\Http;
 
 class ContactController extends Controller
 {
     public function send(Request $request)
     {
-        // Validate the incoming request
+        // Verify Turnstile response
+        $turnstileResponse = $request->input('cf-turnstile-response');
+        $turnstileValidation = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+            'secret' => env('CLOUDFLARE_TURNSTILE_SECRET_KEY'),
+            'response' => $turnstileResponse,
+            'remoteip' => $request->ip(),
+        ]);
+
+        if (!$turnstileValidation->json('success')) {
+            return back()->withErrors(['captcha' => 'CAPTCHA verification failed. Please try again.']);
+        }
+
+        // Validate form inputs
         $validatedData = $request->validate([
             'first-name' => 'required|string|max:255',
             'last-name' => 'required|string|max:255',
@@ -30,13 +42,14 @@ class ContactController extends Controller
             'messageBody' => $validatedData['message'],
         ];
 
-        // Use Laravel's Mail facade to send the email
-        Mail::raw($data['messageBody'], function ($message) use ($data) {
+        // Send email
+        Mail::send('emails.contact', $data, function ($message) use ($data) {
             $message->from($data['email'], "{$data['firstName']} {$data['lastName']}")
                     ->to('jaydenlyricr@gmail.com') // Replace with your receiving email
                     ->subject('New Contact Form Submission');
         });
 
+        // Return success response
         return back()->with('success', 'Your message has been sent successfully!');
     }
 }
