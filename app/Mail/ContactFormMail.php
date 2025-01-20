@@ -2,21 +2,16 @@
 
 namespace App\Mail;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Queue\SerializesModels;
 
 class ContactFormMail extends Mailable
 {
-    use Queueable, SerializesModels;
-
     public $details;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param array $details
      */
     public function __construct($details)
     {
@@ -31,6 +26,7 @@ class ContactFormMail extends Mailable
     public function build()
     {
         return $this->subject('New Contact Form Submission')
-                    ->view('emails.contact');
+                    ->view('emails.contact') // Reference to your email view
+                    ->with('details', $this->details); // Pass data to view
     }
 }
