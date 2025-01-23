@@ -37,6 +37,9 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::get('/contact/send', function () {
+    return redirect()->route('home'); // or another appropriate route
+});
 
 
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
