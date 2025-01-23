@@ -48,8 +48,8 @@
 
   <div class="container mx-auto px-6 sm:px-12 lg:px-20 py-12 max-w-3xl">
     <!-- Form -->
-  <form action="{{ route('contact.send') }}" method="POST"> 
-    @csrf
+    <form id="contact-form" action="{{ route('contact.send') }}" method="POST">
+      @csrf
     <div class="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
       <!-- First Name -->
       <div>
@@ -162,7 +162,7 @@
         </div>
         <label class="text-sm text-gray-600">
           By selecting this, you agree to our
-          <a href="#" class="font-semibold text-red-600">privacy&nbsp;policy</a>.
+          <a href="/privacy-policy" class="font-semibold text-red-600">privacy&nbsp;policy</a>.
         </label>
       </div>
     </div>
@@ -208,7 +208,39 @@
   <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </div>
 
+<!-- Alert Box -->
+<div
+  id="custom-alert"
+  class="fixed top-5 right-5 z-50 hidden w-full max-w-sm p-4 text-sm text-white bg-green-600 rounded-lg shadow-lg"
+  role="alert"
+>
+  <div class="flex items-center">
+    <svg
+      class="w-5 h-5 mr-3"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 12l2 2 4-4m6 8.5A11.955 11.955 0 0112 21a11.955 11.955 0 01-9-4.5M12 3v9m-3-3h6"
+      ></path>
+    </svg>
+    <span>Thank you for reaching out! Your message has been successfully sent.</span>
+  </div>
+</div>
 
+<!-- JavaScript -->
+<script>
+  document.getElementById('contact-form').addEventListener('submit', function () {
+    // Show the custom alert
+    const alertBox = document.getElementById('custom-alert');
+    alertBox.classList.remove('hidden'); // Display the alert
+  });
+</script>
 
 </body>
 </html>
